@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>动漫异次元</title>
+	<link rel="stylesheet" href="assets/css/index.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+	<div id="container">
+		<div class="header">
+			<div class="fl left">
+				<div class="logo">
+					<a href="">
+						<img v-bind:src="logourl" alt="">
+					</a>
+				</div>
+				<ul class="nav">
+					<li v-for="item in nav_list">
+						<a href="">{{item.text}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="fr right">
+				<div class="search">
+					<form class="fl" action="">
+						<input class="text" type="text">
+						<input class="btn" type="submit" value="搜索">
+					</form>
+				</div>
+				<span>登录</span>
+				<span>注册</span>
+				<div class="contribute fr">
+					<a href="">投稿</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="banner">
+			<div class="choise fl">
+				<ul class="choise_nav">
+					<li v-for="item in choise_nav">
+						<a href="">{{item.text}}</a>
+					</li>
+				</ul>
+				<div class="Sublevel" v-for="item in Sublevel_list">
+					<img class="fl" v-bind:src="item.imgsrc" alt="">
+					<p class="fl">{{item.text}}</p>
+					<ul class="Sublevel_item">
+						<li v-for="i in item.Sublevel_item"><a href="">{{i.text}}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="content fr">
+				<div class="msg" v-for="item in msgsList">
+					<img v-bind:src='imgsrc+"/"+item.product_pic' alt="">
+					<p>{{item.product_name}}</p>
+					<ul class="tag_name">
+						<li v-for="(obj,index ) in item.product_tp"><a v-on:click='cont($event)' ref="msg" href="javascript:;">{{obj}}</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		(function (doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					if (clientWidth >= 640) {
+						docEl.style.fontSize = '100px';
+					} else {
+						docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+					}
+				};
+
+			if (!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<script src="assets/js/index.js"></script>
+</body>
+
+</html>
