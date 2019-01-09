@@ -114,6 +114,7 @@ new Vue({
   },
 
   methods: {
+    // 筛选点击事件
     cont:function(event){
       var a =true;
       var txt = event.currentTarget.innerText;
@@ -126,6 +127,7 @@ new Vue({
       if(!a){
         return;
       }
+      // 如果点击重复的不执行，不重复的执行，重新请求。
       axios({
       method: 'get',
       url: 'http://www.acg170.com/api/blank/wz_product',
@@ -144,20 +146,27 @@ new Vue({
       }).catch(function (error) {
         // alert(error);
       })
+      // 将点击的不重复选项推入到新数组中
       this.Sublevel_list[0].Sublevel_item.push(txt);
       this.arr.push(txt);
       var that = this;
       console.log(this.msgsList);
       var arrs = this.msgsList;
+
+      // 循环页面刷新时请求到的数组
       for(var i = 0; i < this.msgsList.length; i++){
         var thats = this;
         console.log(this.arr);
+        // 循环通过点击推入的不重复的数组
         this.arr.forEach(function(v){
           console.log(that.msgsList[i].product_tp.indexOf(v));
+          // 判断点击的内容是否存在请求到的数据中
           if(that.msgsList[i].product_tp.indexOf(v) != -1){
             console.log(that.msgsList[i]);
             console.log(arrs);
             for(var k = 0; k < arrs.length; k++){
+              // 改变页面循环的数组，重新渲染页面
+              // 
               // that.$set(that.msgsList[i].product_tp,k,that.msgsList[i]);
             }
           }else{
