@@ -129,18 +129,16 @@ new Vue({
       }
       // 如果点击重复的不执行，不重复的执行，重新请求。
       axios({
-      method: 'get',
-      url: 'http://www.acg170.com/api/blank/wz_product',
-      dataType: 'json',
-      params: {
-        n: 1,
-      }
+        method: 'get',
+        url: 'http://www.acg170.com/api/blank/wz_product',
+        dataType: 'json',
+        params: {
+          n: 1,
+        }
       }).then(function (response) {
         this.msgsList = response.data.product;
         for (var i = 0; i < this.msgsList.length; i++) {
           this.msgsList[i].product_tp = JSON.parse(this.msgsList[i].product_tp);
-
-
         }
 
       }).catch(function (error) {
@@ -164,11 +162,18 @@ new Vue({
           if(that.msgsList[i].product_tp.indexOf(v) != -1){
             console.log(that.msgsList[i]);
             console.log(arrs);
-            for(var k = 0; k < arrs.length; k++){
+            // this.msgsList.push(that.msgsList[i]);
+            // console.log(this.msgsList);
+            // this.$nextTick(() =>{
+            //   this.msgsList = that.msgsList[i];
+            // })
+            // thats.$nextTick(function(){
+            //   thats.msgsList.push(that.msgsList[i]); 
+            // })
               // 改变页面循环的数组，重新渲染页面
-              // 
               // that.$set(that.msgsList[i].product_tp,k,that.msgsList[i]);
-            }
+              // Vue.set(data,msgsList,that.msgsList[i]);
+              // this.$set(msgsList,that.msgsList[i]);
           }else{
             console.log('没有这条数据');
           }
