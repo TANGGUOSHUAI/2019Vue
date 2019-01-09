@@ -6,6 +6,7 @@ new Vue({
     msgList: [],
     msgsList: [],
     choise_list:[],
+    arr:[],
     imgsrc: 'http://www.acg170.com/Public/image/product',
     // imgsrc:'http://www.acg170.com/Public/image/product/2019-01-04/1546569013898863.jpg',
     nav_list: [
@@ -106,15 +107,28 @@ new Vue({
       // console.log(_self.msgList);
     }).catch(function (error) {
       // alert(error);
-    }) 
+    })
   },
 
   methods: {
     cont:function(event){
+      var a =true;
       var txt = event.currentTarget.innerText;
+      console.log(txt);
       var len = this.Sublevel_list[0].Sublevel_item.length;
-      this.$set(this.Sublevel_list[0].Sublevel_item,len,{"text":txt});
-      // console.log(this.Sublevel_list[0].  );
-    }
+      console.log(this.Sublevel_list[0].Sublevel_item);
+      this.Sublevel_list[0].Sublevel_item.forEach(function(v){
+        console.log(v);
+        if(v.text==txt){
+          a=false;
+        }
+      })
+      if(!a){
+        return;
+      }
+      this.Sublevel_list[0].Sublevel_item.push(txt)
+      this.$set(this.Sublevel_list[0].Sublevel_item,len,{'text':txt});
+      console.log(this.Sublevel_list[0].Sublevel_item);
+    }   
   }
 })
