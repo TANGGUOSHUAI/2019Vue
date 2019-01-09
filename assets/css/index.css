@@ -205,12 +205,13 @@ a{
 
 .msg{
 	width: 183px;
-	height: 300px;
+	height: 330px;
     border: 1px solid rgb(239, 239, 239);
     float: left;
     background: rgb(239, 239, 239);
     margin: 11px;
     margin: 8px;
+    overflow: hidden;
 }
 
 .msg_hidden{
@@ -225,7 +226,7 @@ a{
     cursor: pointer;
 }
 .msg>p{
-	height: 48px;
+	height: 43px;
 	width: 90%;
 	margin: 0 auto;
 	-webkit-line-clamp: 2;
@@ -237,17 +238,21 @@ a{
     cursor: pointer;
 }
 .msg>.tag_name{
-	width: 94%;
-	height: 68px;
+	width: 100%;
 	margin: 0 auto;
+	background: rgb(239, 239, 239);
 }
 .msg>.tag_name>li{
-	float: left;
+	display: inline-block;
 }
 .msg>.tag_name>li>a{
-	padding: 2px;
-	background: white;
-	margin: 2px;
-	border-radius: 10px;
-	color: #888;
+	display: inline-block;
+    height: 17px;
+    line-height: 17px;
+    color: #888;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 2px 4px;
+    margin: 0 2px;
+    background: white;
 }

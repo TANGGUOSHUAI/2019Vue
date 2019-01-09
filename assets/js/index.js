@@ -7,6 +7,8 @@ new Vue({
     msgsList: [],
     choise_list:[],
     arr:[],
+    click_txt:'',
+    len:'',
     imgsrc: 'http://www.acg170.com/Public/image/product',
     // imgsrc:'http://www.acg170.com/Public/image/product/2019-01-04/1546569013898863.jpg',
     nav_list: [
@@ -88,7 +90,10 @@ new Vue({
       }
     ],
   },
-
+  beforeMount:function(){
+    console.log('111');
+    console.log(this.arr);
+  },
   created: function () {
     var _self = this;
     axios({
@@ -102,7 +107,9 @@ new Vue({
       _self.msgsList = response.data.product;
       for (var i = 0; i < _self.msgsList.length; i++) {
         _self.msgsList[i].product_tp = JSON.parse(_self.msgsList[i].product_tp);
+        // console.log(_self.msgsList[i].product_tp);
       }
+
       // console.log(_self.msgsList);
       // console.log(_self.msgList);
     }).catch(function (error) {
@@ -114,11 +121,11 @@ new Vue({
     cont:function(event){
       var a =true;
       var txt = event.currentTarget.innerText;
-      console.log(txt);
+      // console.log(txt);
       var len = this.Sublevel_list[0].Sublevel_item.length;
-      console.log(this.Sublevel_list[0].Sublevel_item);
+      // console.log(this.Sublevel_list[0].Sublevel_item);
       this.Sublevel_list[0].Sublevel_item.forEach(function(v){
-        console.log(v);
+        // console.log(v);
         if(v.text==txt){
           a=false;
         }
@@ -126,9 +133,59 @@ new Vue({
       if(!a){
         return;
       }
-      this.Sublevel_list[0].Sublevel_item.push(txt)
+      axios({
+      method: 'get',
+      url: 'http://www.acg170.com/api/blank/wz_product',
+      dataType: 'json',
+      params: {
+        n: 1,
+      }
+      }).then(function (response) {
+        this.msgsList = response.data.product;
+        for (var i = 0; i < this.msgsList.length; i++) {
+          this.msgsList[i].product_tp = JSON.parse(this.msgsList[i].product_tp);
+
+
+        }
+
+
+        // console.log(_self.msgsList);
+        // console.log(_self.msgList);
+      }).catch(function (error) {
+        // alert(error);
+      })
+
+
+      this.Sublevel_list[0].Sublevel_item.push(txt);
+      this.arr.push(txt);
+      var that = this;
+      // console.log(this.arr);
+      // console.log(this.arr.length);
+      // console.log(this.msgsList);
+      console.log(this.msgsList);
+      for(var i = 0; i < this.msgsList.length; i++){
+        var thats = this;
+        console.log(this.arr);
+        this.arr.forEach(function(v){
+          // console.log(text);
+          // console.log(that.msgsList);
+          // console.log(that.msgsList[i].product_tp.indexOf(v));
+          if(that.msgsList[i].product_tp.indexOf(v) != 1){
+            console.log('没有');
+          }else{
+            console.log('有');
+          }
+          // if(that.msgsList[i].product_tp.indexOf(v)){
+          //   console.log('有');
+          // }else{
+          //   console.log('没有的');
+          // }
+          // console.log(this.msgsList[i].product_tp.indexOf("积木"));
+          // console.log(this.msgsList[18].product_tp.indexOf('手办'));
+        })
+      }
       this.$set(this.Sublevel_list[0].Sublevel_item,len,{'text':txt});
-      console.log(this.Sublevel_list[0].Sublevel_item);
+      // console.log(this.Sublevel_list[0].Sublevel_item);
     }   
   }
 })
