@@ -176,7 +176,7 @@ new Vue({
       // });
 
       this.msgsList = this.msgsList.filter(function(list){
-        console.log(list);
+        // console.log(list);
         return list.product_tp.find(function(tp){          
           return tp === txt;
         })
@@ -215,23 +215,62 @@ new Vue({
      // 待解决问题，减少筛选条件时候，数据匹配的不正确
     close:function(e){
       var that = this;
+      // this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
+      //   console.log(list);
+      //   if(list.text === e.currentTarget.innerText){
+      //       that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
+      //       console.log(list);
+      //       console.log(that.Sublevel_list[0].Sublevel_item);
+      //       that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
+      //         console.log(v.text);
+      //         if(v){
+      //           console.log('有数据');
+      //         }else{
+      //           console.log('没有数据了');
+      //         }
+      //         that.msgsList = that.msgList.filter( list => {
+      //            return list.product_tp.find(a => {
+      //               return a === v.text;
+      //            })
+      //         })
+      //       })
+
+      //   }else{
+      //     console.log(that.Sublevel_list[0].Sublevel_item);
+      //   }
+      // })
+
+
+
+      // 数据匹配有问题！！！！！！！ 
+
       this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
+        console.log(list);
         if(list.text === e.currentTarget.innerText){
-            that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
-            that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
-              console.log(v.text);
-              that.msgsList = that.msgList.filter( list => {
-                 return list.product_tp.find(a => {
-                    return a === v.text;
-                 })
-              })
-            })
-
+           that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
+            console.log(list);
+            console.log(that.Sublevel_list[0].Sublevel_item);
         }else{
-
-            return false;
+          console.log(that.Sublevel_list[0].Sublevel_item);
         }
       })
+
+      console.log(that.Sublevel_list[0].Sublevel_item.length);
+      if(that.Sublevel_list[0].Sublevel_item.length>0){
+        that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
+          console.log(v.text);
+          that.msgsList = that.msgList.filter( list => {
+             return list.product_tp.find(a => {
+                return a === v.text;
+             })
+          })
+        })
+      }else{
+        that.msgsList = that.msgList; 
+      }
+      
+
+
       // console.log(this.Sublevel_list[0].Sublevel_item.indexOf(e.currentTarget.innerText));
       // console.log()
       // Vue.delete()
