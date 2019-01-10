@@ -113,6 +113,11 @@ new Vue({
           _self.msgsList[i].product_tp = JSON.parse(
             _self.msgsList[i].product_tp
           );
+        };
+        for (var i = 0; i < _self.msgList.length; i++) {
+          _self.msgList[i].product_tp = JSON.parse(
+            _self.msgList[i].product_tp
+          );
         }
       })
       .catch(function(error) {
@@ -171,11 +176,8 @@ new Vue({
       // });
 
       this.msgsList = this.msgsList.filter(function(list){
-        // console.log(list);
-        return list.product_tp.find(function(tp){
-          // console.log(tp);
-          // console.log(tp === txt);
-          
+        console.log(list);
+        return list.product_tp.find(function(tp){          
           return tp === txt;
         })
       })
@@ -212,9 +214,50 @@ new Vue({
     },
     close:function(e){
       console.log(e.currentTarget.innerText);
-      var txt = e.currentTarget.innerText;
+      console.log(this.msgList);
       var that = this;
-      console.log(that.arr);
+      console.log(this.Sublevel_list[0].Sublevel_item);
+      this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
+        if(list.text === e.currentTarget.innerText){
+            console.log(index);
+            console.log(that.Sublevel_list[0].Sublevel_item);
+            that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
+            console.log(that.Sublevel_list[0].Sublevel_item);
+            console.log(that.msgList); 
+            that.msgsList = that.msgList;
+            // 待解决 选中两个之后，关闭一个，数据不正确
+        }else{
+
+            return false;
+        }
+      })
+
+      console.log(this.Sublevel_list[0].Sublevel_item);
+
+      // console.log(this.Sublevel_list[0].Sublevel_item.indexOf(e.currentTarget.innerText));
+      // console.log()
+      // Vue.delete()
+      // this.msgsList = this.msgList
+      // console.log(e.currentTarget.innerText);
+      // var txt = e.currentTarget.innerText;
+      // var that = this;
+      // console.log(that.arr);
+      // console.log(this.msgsList);
+      // console.log(this.Sublevel_list[0].Sublevel_item);
+      // // this.Sublevel_list[0].Sublevel_item = null;
+      // var a = this.Sublevel_list[0].Sublevel_item.filter(list =>{
+      //   console.log(list);
+      //   console.log(list.text);
+      //   Object.assign(this.$data, this.$options.data())
+      //   // return list.text.find(function(text){
+      //   //   return text !== txt;
+      //   // })
+      //   // console.log(this.Sublevel_list[0].Sublevel_item);
+      //   // return list.find(function(s){
+      //   //   console.log(s);
+      //   // });
+      // })
+      // console.log(a);
     }
 
   }
