@@ -15,7 +15,7 @@ new Vue({
       nav_list: [
         { text: "首页" },
         { text: "文章" },
-        { text: "视频" },
+        { text: "视频" },   
         { text: "图片" },
         { text: "论坛" },
         { text: "资料库" },
