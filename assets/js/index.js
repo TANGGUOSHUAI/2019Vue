@@ -24,7 +24,7 @@ new Vue({
       ],
       choise_nav: [
         { text: "全部" },
-        { text: "机甲" },
+        { text: "机甲" },   
         { text: "手办" },
         { text: "特摄" },
         { text: "美系" },
