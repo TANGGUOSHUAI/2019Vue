@@ -51,7 +51,7 @@
 					<img class="fl" v-bind:src="item.imgsrc" alt="">
 					<p class="fl">{{item.text}}</p>
 					<ul class="Sublevel_item">
-						<li v-for="i in item.Sublevel_item"><a href="">{{i.text}}</a></li>
+						<li v-on:click="close($event)" v-for="i in item.Sublevel_item" v-text="i.text"></li>
 					</ul>
 				</div>
 			</div>

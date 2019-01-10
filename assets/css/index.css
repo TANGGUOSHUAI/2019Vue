@@ -22,6 +22,10 @@ li{
 a{
 	text-decoration: none;
 	color:black;
+	text-decoration: none;
+    color: inherit;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
 }
 #container{
 	width: 100%;
@@ -201,11 +205,18 @@ a{
     margin-bottom: 3px;
     padding: 0 6px;
     cursor: pointer;
+    border:1px solid #ddd;
 }
-
+.Sublevel>.Sublevel_item>li>img{
+	width: 10px;
+	height: 10px;
+	margin-left: 4px;
+}
 .msg{
 	width: 183px;
-	height: 330px;
+	/*min-height: 330px;*/
+	/*max-height: 350px;*/
+	height: 350px;
     border: 1px solid rgb(239, 239, 239);
     float: left;
     background: rgb(239, 239, 239);
