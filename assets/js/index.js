@@ -212,28 +212,26 @@ new Vue({
       // }
       this.$set(this.Sublevel_list[0].Sublevel_item, len, { text: txt });
     },
+     // 待解决问题，减少筛选条件时候，数据匹配的不正确
     close:function(e){
-      console.log(e.currentTarget.innerText);
-      console.log(this.msgList);
       var that = this;
-      console.log(this.Sublevel_list[0].Sublevel_item);
       this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
         if(list.text === e.currentTarget.innerText){
-            console.log(index);
-            console.log(that.Sublevel_list[0].Sublevel_item);
             that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
-            console.log(that.Sublevel_list[0].Sublevel_item);
-            console.log(that.msgList); 
-            that.msgsList = that.msgList;
-            // 待解决 选中两个之后，关闭一个，数据不正确
+            that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
+              console.log(v.text);
+              that.msgsList = that.msgList.filter( list => {
+                 return list.product_tp.find(a => {
+                    return a === v.text;
+                 })
+              })
+            })
+
         }else{
 
             return false;
         }
       })
-
-      console.log(this.Sublevel_list[0].Sublevel_item);
-
       // console.log(this.Sublevel_list[0].Sublevel_item.indexOf(e.currentTarget.innerText));
       // console.log()
       // Vue.delete()
