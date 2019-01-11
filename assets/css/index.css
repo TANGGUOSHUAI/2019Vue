@@ -172,6 +172,7 @@ a{
 	min-height: 200px;
 	border:1px solid red;
 }
+
 .Sublevel>p{
 	font-size:20px;
 	display: inline-block;
@@ -196,6 +197,8 @@ a{
     justify-content: start;
     flex-wrap: wrap;
     padding-bottom: 2px;
+    max-height: 160px;
+    overflow-y: scroll;
 }
 .Sublevel>.Sublevel_item>li{
     height: 32px;
@@ -211,6 +214,129 @@ a{
 	height: 10px;
 	margin-left: 4px;
 }
+
+
+.Sublevel_selected{
+	width: 100%;
+	min-height: 200px;
+	border:1px solid red;
+}
+
+.Sublevel_selected>p{
+	font-size:20px;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	margin: 4px;
+
+}
+
+.Sublevel_selected>img{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin-top: 4px;
+}
+.Sublevel_selected>.Sublevel_item{
+	width: 100%;
+	/*min-height: 200px;*/
+	border:1px solid red;
+	margin-top: 34px;
+	display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    padding-bottom: 2px;
+}
+.Sublevel_selected>.Sublevel_item>li{
+    height: 32px;
+    line-height: 32px;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    padding: 0 6px;
+    cursor: pointer;
+    border:1px solid #ddd;
+}
+.Sublevel_selected>.Sublevel_item>li>img{
+	width: 10px;
+	height: 10px;
+	margin-left: 4px;
+}
+
+
+
+.Sublevel_Time{
+	width: 100%;
+	min-height: 200px;
+	border:1px solid red;
+}
+
+.Sublevel_Time>p{
+	font-size:20px;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	margin: 4px;
+
+}
+
+.Sublevel_Time>img{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin-top: 4px;
+}
+.Sublevel_Time>.Sublevel_item{
+	width: 100%;
+	/*min-height: 200px;*/
+	border:1px solid red;
+	margin-top: 34px;
+	display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    padding-bottom: 2px;
+    max-height: 160px;
+    overflow-y: scroll;
+}
+.Sublevel_Time>.Sublevel_item>li{
+    height: 32px;
+    line-height: 32px;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    padding: 0 6px;
+    cursor: pointer;
+    border:1px solid #ddd;
+    margin-left:4px; 
+}
+.Sublevel_Time>.Sublevel_item>li>img{
+	width: 10px;
+	height: 10px;
+	margin-left: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .msg{
 	width: 183px;
 	/*min-height: 330px;*/

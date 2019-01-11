@@ -47,11 +47,28 @@
 						<a href="">{{item.text}}</a>
 					</li>
 				</ul>
-				<div class="Sublevel" v-for="item in Sublevel_list">
+				<div class="Sublevel_selected" v-for="item in selectef_list">
 					<img class="fl" v-bind:src="item.imgsrc" alt="">
 					<p class="fl">{{item.text}}</p>
 					<ul class="Sublevel_item">
 						<li v-on:click="close($event)" v-for="i in item.Sublevel_item" v-text="i.text"></li>
+					</ul>
+				</div>
+
+				<div class="Sublevel" v-for="item in Sublevel_list">
+					<img class="fl" v-bind:src="item.imgsrc" alt="">
+					<p class="fl">{{item.text}}</p>
+					<ul class="Sublevel_item">
+						<li v-for="i in item.Sublevel_item" v-text="i.text"></li>
+					</ul>
+				</div>
+
+
+				<div class="Sublevel_Time" v-for="item in selectef_time">
+					<img class="fl" v-bind:src="item.imgsrc" alt="">
+					<p class="fl">{{item.text}}</p>
+					<ul class="Sublevel_item">
+						<li v-on:click="choise_time" v-for="i in time_list" v-text="i.time"></li>
 					</ul>
 				</div>
 			</div>

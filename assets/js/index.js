@@ -12,10 +12,10 @@ Vue.component('tagname',{
       var that = page.$data,
           a = true,
           txt = event.currentTarget.innerText,
-          len = that.Sublevel_list[0].Sublevel_item.length;
+          len = that.selectef_list[0].Sublevel_item.length;
       console.log(that);
           
-      that.Sublevel_list[0].Sublevel_item.forEach(function(v) {
+      that.selectef_list[0].Sublevel_item.forEach(function(v) {
         if (v.text == txt) {
           a = false;
         }
@@ -24,14 +24,14 @@ Vue.component('tagname',{
       if (!a) {
         return;
       }
-      that.Sublevel_list[0].Sublevel_item.push(txt);
+      that.selectef_list[0].Sublevel_item.push(txt);
       that.arr.push(txt);
       that.msgsList = that.msgsList.filter(function(list){
         return list.product_tp.find(function(tp){          
           return tp === txt;
         })
       })
-      this.$set(that.Sublevel_list[0].Sublevel_item, len, { text: txt });
+      this.$set(that.selectef_list[0].Sublevel_item, len, { text: txt });
     }
   }
 })
@@ -69,13 +69,40 @@ var page = new Vue({
         { text: "积木" },
         { text: "模型" }
       ],
-      Sublevel_list: [
+
+      selectef_list:[
         {
-          text: "已选",
+          text:"已选",
           imgsrc: "http://www.acg170.com/Public/home/images/xuanzhong.png",
           close:"http://www.acg170.com/Public/home/images/nav-x.png",
           Sublevel_item: []
-        },
+        }
+          
+      ],
+
+
+      selectef_time:[
+        {
+           text: "日期",
+          imgsrc: "http://www.acg170.com/Public/home/images/clock-circle.png",
+          Sublevel_item: [
+            // { text: "2018" },
+            // { text: "2017" },
+            // { text: "2016" },
+            // { text: "2015" },
+            // { text: "2014" },
+            // { text: "2013" },
+            // { text: "2012" },
+            // { text: "2011" },
+            // { text: "2010" },
+            // { text: "2009" },
+            // { text: "2008" },
+            // { text: "1997" }
+          ]
+        }
+      ],
+      time_list:[],
+      Sublevel_list: [
         {
           text: "剧集",
           imgsrc: "http://www.acg170.com/Public/home/images/home.png",
@@ -112,24 +139,6 @@ var page = new Vue({
             { text: "孩之宝 " },
             { text: "海洋堂 " }
           ]
-        },
-        {
-          text: "日期",
-          imgsrc: "http://www.acg170.com/Public/home/images/clock-circle.png",
-          Sublevel_item: [
-            { text: "2018" },
-            { text: "2017" },
-            { text: "2016" },
-            { text: "2015" },
-            { text: "2014" },
-            { text: "2013" },
-            { text: "2012" },
-            { text: "2011" },
-            { text: "2010" },
-            { text: "2009" },
-            { text: "2008" },
-            { text: "1997" }
-          ]
         }
       ]
     };
@@ -145,52 +154,83 @@ var page = new Vue({
       }
     })
       .then(function(response) {
+        _self.time_list = response.data.time;
+        console.log(response.data);
         _self.msgsList = response.data.product;
         _self.msgList = response.data.product;
         for (var i = 0; i < _self.msgsList.length; i++) {
           _self.msgsList[i].product_tp = JSON.parse(
             _self.msgsList[i].product_tp
-          );
-        };
-        for (var i = 0; i < _self.msgList.length; i++) {
-          _self.msgList[i].product_tp = JSON.parse(
-            _self.msgList[i].product_tp
-          );
+          );          
         }
+        console.log(_self.time_list);
+        for(var j = 0; j < _self.time_list.length; j++){
+          _self.time_list[i].time = JSON.parse(_self.time_list[i].time);
+        }
+          console.log(_self.time_list[i]);
+
       })
       .catch(function(error) {
-        // alert(error);
+          console.log(error);
       });
   },
 
   methods: {
     close:function(e){
       var that = this;
-      this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
+      this.selectef_list[0].Sublevel_item.filter(function(list,index){
         // console.log(list);
         if(list.text === e.currentTarget.innerText){
-           that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
+           that.selectef_list[0].Sublevel_item.splice(index,index+1);
             // console.log(list);
             // console.log(that.Sublevel_list[0].Sublevel_item);
         }else{
-          console.log(that.Sublevel_list[0].Sublevel_item);
+          console.log(that.selectef_list[0].Sublevel_item);
         }
       })
 
-      if(that.Sublevel_list[0].Sublevel_item.length>0){
+      if(that.selectef_list[0].Sublevel_item.length>0){
         // 将筛选条件进行循环跟列表中的数据 进行匹配
         that.msgsList = that.msgList.filter(list =>{
           // 返回了数据与规则全部匹配的数据
-         return that.Sublevel_list[0].Sublevel_item.every(text =>{;
+         return that.selectef_list[0].Sublevel_item.every(text =>{;
             // 返回匹配项的值没有-1的
             return list.product_tp.indexOf(text.text) != -1;
           })
         })
-
       }else{
         // 如果筛选条件没有的时候，展示全部数据
         that.msgsList = that.msgList; 
       }
+    },
+
+    choise_time:function(e){
+      var that = this,
+          txt = e.currentTarget.innerText,
+          sum = true,
+          len = that.selectef_list[0].Sublevel_item.length;
+          console.log(this.selectef_list[0].Sublevel_item);
+          console.log(that.time_list);
+          // console.log(that.selectef_time);
+
+            this.selectef_list[0].Sublevel_item.forEach(function(v) {
+                if(txt==v.text){
+                  sum = false;
+                }
+            });
+            console.log(this.selectef_time[0].Sublevel_item);
+            this.selectef_time[0].Sublevel_item.forEach(function(v){
+              console.log(v);
+            })
+
+            if(!sum){
+              return;
+            }
+
+            
+          this.$set(that.selectef_list[0].Sublevel_item, len, { text: txt });
+
     }
+
   }
 });
