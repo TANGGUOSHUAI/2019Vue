@@ -1,4 +1,45 @@
-new Vue({
+Vue.component('tagname',{
+  data(){
+    return{}
+  },
+  props:['title'],
+  template:"<li @click='click($event)'><a href='javascript:;'>{{title}}</a></li>",
+  methods:{
+    //点击选项的时候，因为被点击的内容空格问题，有时候匹配不上
+    click:function(e){
+
+      console.log(e.currentTarget.innerText);
+      console.log(page);
+      console.log(page.$data);
+      var that = page.$data;
+
+      var a = true;
+      var txt = event.currentTarget.innerText;
+      var len = that.Sublevel_list[0].Sublevel_item.length;
+      that.Sublevel_list[0].Sublevel_item.forEach(function(v) {
+        if (v.text == txt) {
+          a = false;
+        }
+      });
+      // 点击重复的时候不执行下边所有代码
+      if (!a) {
+        return;
+      }
+      that.Sublevel_list[0].Sublevel_item.push(txt);
+      that.arr.push(txt);
+      that.msgsList = that.msgsList.filter(function(list){
+        return list.product_tp.find(function(tp){          
+          return tp === txt;
+        })
+      })
+
+      this.$set(that.Sublevel_list[0].Sublevel_item, len, { text: txt });
+    }
+  }
+})
+
+
+var page = new Vue({
   el: "#container",
   data() {
     return {
@@ -127,122 +168,66 @@ new Vue({
 
   methods: {
     // 筛选点击事件
-    cont: function(event) {
-      console.log(event);
-      var a = true;
-      var txt = event.currentTarget.innerText;
-      var len = this.Sublevel_list[0].Sublevel_item.length;
-      this.Sublevel_list[0].Sublevel_item.forEach(function(v) {
-        if (v.text == txt) {
-          a = false;
-        }
-      });
-      if (!a) {
-        return;
-      }
-      // 如果点击重复的不执行，不重复的执行，重新请求。
-      // axios({
-      //   method: "get",
-      //   url: "http://www.acg170.com/api/blank/wz_product",
-      //   dataType: "json",
-      //   params: {
-      //     n: 2
-      //   }
-      // })
-      //   .then(response => {
-      //     console.log(this.msgsList);
-      //     this.msgsList = response.data.product;
-      //     console.log(this.msgsList);
-      //     for (var i = 0; i < this.msgsList.length; i++) {
-      //       this.msgsList[i].product_tp = JSON.parse(
-      //         this.msgsList[i].product_tp
-      //       );
-      //     }
-      //   })
-      //   .catch(function(error) {
-      //     // alert(error);
-      //   });
-      // 将点击的不重复选项推入到新数组中
-      this.Sublevel_list[0].Sublevel_item.push(txt);
-      this.arr.push(txt);
-      var that = this;
-      // console.log(this.msgsList);
-      // this.msgsList = this.msgsList.filter(list => {
-      //   // console.log(list);
-      //   return list.product_tp.find(tp => {
-      //     // console.log(tp);
-      //     return tp === txt;
-      //   });
-      // });
+    // cont: function(event) {
+    //   var a = true;
+    //   var txt = event.currentTarget.innerText;
+    //   var len = this.Sublevel_list[0].Sublevel_item.length;
+    //   this.Sublevel_list[0].Sublevel_item.forEach(function(v) {
+    //     if (v.text == txt) {
+    //       a = false;
+    //     }
+    //   });
+    //   // 点击重复的时候不执行下边所有代码
+    //   if (!a) {
+    //     return;
+    //   }
+    //   // 如果点击重复的不执行，不重复的执行，重新请求。
+    //   // axios({
+    //   //   method: "get",
+    //   //   url: "http://www.acg170.com/api/blank/wz_product",
+    //   //   dataType: "json",
+    //   //   params: {
+    //   //     n: 2
+    //   //   }
+    //   // })
+    //   //   .then(response => {
+    //   //     console.log(this.msgsList);
+    //   //     this.msgsList = response.data.product;
+    //   //     console.log(this.msgsList);
+    //   //     for (var i = 0; i < this.msgsList.length; i++) {
+    //   //       this.msgsList[i].product_tp = JSON.parse(
+    //   //         this.msgsList[i].product_tp
+    //   //       );
+    //   //     }
+    //   //   })
+    //   //   .catch(function(error) {
+    //   //     // alert(error);
+    //   //   });
+    //   // 将点击的不重复选项推入到新数组中
+    //   this.Sublevel_list[0].Sublevel_item.push(txt);
+    //   this.arr.push(txt);
+    //   // console.log(this.msgsList);
+    //   // this.msgsList = this.msgsList.filter(list => {
+    //   //   // console.log(list);
+    //   //   return list.product_tp.find(tp => {
+    //   //     // console.log(tp);
+    //   //     return tp === txt;
+    //   //   });
+    //   // });
 
-      this.msgsList = this.msgsList.filter(function(list){
-        // console.log(list);
-        return list.product_tp.find(function(tp){          
-          return tp === txt;
-        })
-      })
+    //   this.msgsList = this.msgsList.filter(function(list){
+    //     // console.log(list);
+    //     return list.product_tp.find(function(tp){          
+    //       return tp === txt;
+    //     })
+    //   })
 
-      // 循环页面刷新时请求到的数组
-      // for (var i = 0; i < this.msgsList.length; i++) {
-      //   var thats = this;
-      //   // console.log(this.arr);
-      //   // 循环通过点击推入的不重复的数组
-      //   this.arr.forEach(function(v) {
-      //     // console.log(that.msgsList[i].product_tp.indexOf(v));
-      //     // 判断点击的内容是否存在请求到的数据中
-      //     if (that.msgsList[i].product_tp.indexOf(v) != -1) {
-      //       // console.log(that.msgsList[i]);
-      //       // console.log(arrs);
-      //       // this.msgsList.push(that.msgsList[i]);
-      //       // console.log(this.msgsList);
-      //       // this.$nextTick(() =>{
-      //       //   this.msgsList = that.msgsList[i];
-      //       // })
-      //       // thats.$nextTick(function(){
-      //       //   thats.msgsList.push(that.msgsList[i]);
-      //       // })
-      //       // 改变页面循环的数组，重新渲染页面
-      //       // that.$set(that.msgsList[i].product_tp,k,that.msgsList[i]);
-      //       // Vue.set(data,msgsList,that.msgsList[i]);
-      //       // this.$set(msgsList,that.msgsList[i]);
-      //     } else {
-      //       console.log("没有这条数据");
-      //     }
-      //   });
-      // }
-      this.$set(this.Sublevel_list[0].Sublevel_item, len, { text: txt });
-    },
+    //   this.$set(this.Sublevel_list[0].Sublevel_item, len, { text: txt });
+    // },
      // 待解决问题，减少筛选条件时候，数据匹配的不正确
     close:function(e){
       var that = this;
-      // this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
-      //   console.log(list);
-      //   if(list.text === e.currentTarget.innerText){
-      //       that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
-      //       console.log(list);
-      //       console.log(that.Sublevel_list[0].Sublevel_item);
-      //       that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
-      //         console.log(v.text);
-      //         if(v){
-      //           console.log('有数据');
-      //         }else{
-      //           console.log('没有数据了');
-      //         }
-      //         that.msgsList = that.msgList.filter( list => {
-      //            return list.product_tp.find(a => {
-      //               return a === v.text;
-      //            })
-      //         })
-      //       })
-
-      //   }else{
-      //     console.log(that.Sublevel_list[0].Sublevel_item);
-      //   }
-      // })
-
-
-
-      // 数据匹配有问题！！！！！！！ 
+ 
 
       this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
         // console.log(list);
@@ -326,41 +311,15 @@ new Vue({
           // 返回了数据与规则全部匹配的数据
          return that.Sublevel_list[0].Sublevel_item.every(text =>{
             console.log(list.product_tp.indexOf(text.text));
-            console.log(text);
             // 返回匹配项的值没有-1的
             return list.product_tp.indexOf(text.text) != -1;
           })
         })
 
       }else{
+        // 如果筛选条件没有的时候，展示全部数据
         that.msgsList = that.msgList; 
       }
-
-      // console.log(this.Sublevel_list[0].Sublevel_item.indexOf(e.currentTarget.innerText));
-      // console.log()
-      // Vue.delete()
-      // this.msgsList = this.msgList
-      // console.log(e.currentTarget.innerText);
-      // var txt = e.currentTarget.innerText;
-      // var that = this;
-      // console.log(that.arr);
-      // console.log(this.msgsList);
-      // console.log(this.Sublevel_list[0].Sublevel_item);
-      // // this.Sublevel_list[0].Sublevel_item = null;
-      // var a = this.Sublevel_list[0].Sublevel_item.filter(list =>{
-      //   console.log(list);
-      //   console.log(list.text);
-      //   Object.assign(this.$data, this.$options.data())
-      //   // return list.text.find(function(text){
-      //   //   return text !== txt;
-      //   // })
-      //   // console.log(this.Sublevel_list[0].Sublevel_item);
-      //   // return list.find(function(s){
-      //   //   console.log(s);
-      //   // });
-      // })
-      // console.log(a);
     }
-
   }
 });
