@@ -306,10 +306,7 @@ new Vue({
         //   // console.log(v.text);
         //   // 将列表进行循环
         //   that.msgsList = that.msgList.filter( list => {
-        //     // 将列表中的对象进行循环查找    问题：假如两个条件的时候，只要满足一条就会被返回
-        //       // console.log(list);
-            
-            
+        //     // 将列表中的对象进行循环查找    问题：假如两个条件的时候，只要满足一条就会被返回           
         //       return list.product_tp.every(function(text){
         //           console.log(text.indexOf(v));
         //       })
@@ -317,7 +314,6 @@ new Vue({
         //      return list.product_tp.find(a => {
         //         console.log(v.text);
         //         console.log(a);
-        //         // console.log(a === v.text);
         //         // 返回匹配成功的
         //         return a === v.text;
         //      })
@@ -325,15 +321,16 @@ new Vue({
         // })
         // 
         // 
-          that.msgsList = that.msgList.filter(function(list){
-            // console.log(list.product_tp);
-            return that.Sublevel_list[0].Sublevel_item.every(function(text){
-              console.log(list.product_tp.indexOf(text.text));
-              // console.log(list.product_tp.indexOf(text.text));
-              return list.product_tp.indexOf(text.text)!=-1;
-            })
+        that.msgsList = that.msgList.filter(list =>{
+          console.log(list.product_tp);
+          // 返回了数据与规则全部匹配的数据
+         return that.Sublevel_list[0].Sublevel_item.every(text =>{
+            console.log(list.product_tp.indexOf(text.text));
+            console.log(text);
+            // 返回匹配项的值没有-1的
+            return list.product_tp.indexOf(text.text) != -1;
           })
-
+        })
 
       }else{
         that.msgsList = that.msgList; 
