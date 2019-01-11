@@ -60,8 +60,7 @@
 					<img v-bind:src='imgsrc+"/"+item.product_pic' alt="">
 					<p>{{item.product_name}}</p>
 					<ul class="tag_name">
-						<!-- <li v-for="(obj,index ) in item.product_tp"><a v-on:click='cont($event)' ref="msg" href="javascript:;">{{obj}}</a></li> -->
-						<tagname v-for="obj in item.product_tp" v-bind:title="obj"></tagname>
+						<tagname v-for="(obj,index) in item.product_tp" :key="index" :title="obj"></tagname>
 					</ul>
 				</div>
 			</div>
@@ -88,5 +87,4 @@
 	</script>
 	<script src="assets/js/index.js"></script>
 </body>
-
 </html>
