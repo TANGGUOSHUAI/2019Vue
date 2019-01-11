@@ -245,31 +245,99 @@ new Vue({
       // 数据匹配有问题！！！！！！！ 
 
       this.Sublevel_list[0].Sublevel_item.filter(function(list,index){
-        console.log(list);
+        // console.log(list);
         if(list.text === e.currentTarget.innerText){
            that.Sublevel_list[0].Sublevel_item.splice(index,index+1);
-            console.log(list);
+            // console.log(list);
             console.log(that.Sublevel_list[0].Sublevel_item);
         }else{
           console.log(that.Sublevel_list[0].Sublevel_item);
         }
       })
 
-      console.log(that.Sublevel_list[0].Sublevel_item.length);
+
+      // 如果删除一个剩下的选中的大于0个的时候，让数据跟剩下的选项进行匹配
+      // console.log(that.Sublevel_list[0].Sublevel_item.length);
+        // 如果筛选条件大于0个的时候执行
+      // if(that.Sublevel_list[0].Sublevel_item.length>0){
+      //   // 将筛选条件进行循环跟列表中的数据 进行匹配
+      //   that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
+      //     // console.log(v.text);
+      //     // 将列表进行循环
+      //     that.msgsList = that.msgList.filter( list => {
+      //       // 将列表中的对象进行循环查找    问题：假如两个条件的时候，只要满足一条就会被返回
+      //        return list.product_tp.find(a => {
+      //           console.log(v.text);
+      //           console.log(a);
+      //           // console.log(a === v.text);
+      //           // 返回匹配成功的
+      //           return a === v.text;
+      //        })
+      //     })
+      //   })
+      // }else{
+      //   that.msgsList = that.msgList; 
+      // }
+      
+
+      //   if(that.Sublevel_list[0].Sublevel_item.length>0){
+      //   // 将筛选条件进行循环跟列表中的数据 进行匹配
+      //   that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
+      //     // console.log(v.text);
+      //     // 将列表进行循环
+      //     that.msgsList = that.msgList.filter( list => {
+      //       // 将列表中的对象进行循环查找    问题：假如两个条件的时候，只要满足一条就会被返回
+      //        return list.product_tp.find(a => {
+      //           console.log(v.text);
+      //           console.log(a);
+      //           // console.log(a === v.text);
+      //           // 返回匹配成功的
+      //           return a === v.text;
+      //        })
+      //     })
+      //   })
+      // }else{
+      //   that.msgsList = that.msgList; 
+      // }
+
       if(that.Sublevel_list[0].Sublevel_item.length>0){
-        that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
-          console.log(v.text);
-          that.msgsList = that.msgList.filter( list => {
-             return list.product_tp.find(a => {
-                return a === v.text;
-             })
+        // 将筛选条件进行循环跟列表中的数据 进行匹配
+        // that.Sublevel_list[0].Sublevel_item.forEach(function(v,k){
+        //   // console.log(v.text);
+        //   // 将列表进行循环
+        //   that.msgsList = that.msgList.filter( list => {
+        //     // 将列表中的对象进行循环查找    问题：假如两个条件的时候，只要满足一条就会被返回
+        //       // console.log(list);
+            
+            
+        //       return list.product_tp.every(function(text){
+        //           console.log(text.indexOf(v));
+        //       })
+            
+        //      return list.product_tp.find(a => {
+        //         console.log(v.text);
+        //         console.log(a);
+        //         // console.log(a === v.text);
+        //         // 返回匹配成功的
+        //         return a === v.text;
+        //      })
+        //   })
+        // })
+        // 
+        // 
+          that.msgsList = that.msgList.filter(function(list){
+            // console.log(list.product_tp);
+            return that.Sublevel_list[0].Sublevel_item.every(function(text){
+              console.log(list.product_tp.indexOf(text.text));
+              // console.log(list.product_tp.indexOf(text.text));
+              return list.product_tp.indexOf(text.text)!=-1;
+            })
           })
-        })
+
+
       }else{
         that.msgsList = that.msgList; 
       }
-      
-
 
       // console.log(this.Sublevel_list[0].Sublevel_item.indexOf(e.currentTarget.innerText));
       // console.log()
